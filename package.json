@@ -4,7 +4,9 @@
   "description": "A simple CLI to work with the Brotli compression algorithm",
   "main": "index.js",
   "scripts": {
-    "lint": "eslint **/*.js --ignore-pattern=coverage"
+    "lint": "eslint **/*.js --ignore-pattern=coverage",
+    "pretest": "npm run lint",
+    "test": "nyc mocha test/**/*.spec.js"
   },
   "bin": {
     "brotli-cli": "bin/brotli-cli.js"
@@ -26,10 +28,11 @@
     "yargs": "^9.0.1"
   },
   "devDependencies": {
-    "eslint": "^4.9.0",
+    "eslint": "^4.10.0",
     "eslint-config-airbnb-base": "^12.1.0",
     "eslint-plugin-import": "^2.8.0",
     "mocha": "^4.0.1",
-    "nyc": "^11.2.1"
+    "nyc": "^11.3.0",
+    "sinon": "^4.0.2"
   }
 }
