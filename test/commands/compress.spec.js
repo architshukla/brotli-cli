@@ -22,7 +22,7 @@ describe('compress', () => {
 
   describe('#builder()', () => {
     it('should set up options', () => {
-      const expectedOptions = ['outdir', 'verbose'];
+      const expectedOptions = ['outdir', 'verbose', 'quality'];
       const optionSpy = sandbox.stub();
       optionSpy.callsFake(() => ({ option: optionSpy }));
       const mockYargs = { option: optionSpy };
@@ -30,7 +30,7 @@ describe('compress', () => {
       compressCmd.builder(mockYargs);
 
       expectedOptions.forEach(o => optionSpy.calledWith(o));
-      assert.equal(optionSpy.callCount, expectedOptions.length, 'Did not setup expected number of options');
+      assert.equal(optionSpy.callCount, expectedOptions.length, 'did not setup expected number of options');
     });
   });
 
