@@ -6,7 +6,8 @@
   "scripts": {
     "lint": "eslint **/*.js --ignore-pattern=coverage",
     "pretest": "npm run lint",
-    "test": "nyc mocha test/**/*.spec.js"
+    "test": "nyc mocha test/**/*.spec.js",
+    "ci:test": "npm test && nyc check-coverage"
   },
   "bin": {
     "brotli-cli": "bin/brotli-cli.js"
