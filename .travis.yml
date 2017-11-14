@@ -13,3 +13,4 @@ before_install:
   - npm i -g npm@latest
 script:
   - npm run ci:test
+after_success: npm run ci:coverage
