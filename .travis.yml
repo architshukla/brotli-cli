@@ -10,7 +10,13 @@ cache:
   directories:
     - "node_modules"
 before_install:
-  - npm i -g npm@latest
+  - npm i -g npm@5
+  - npm install -g greenkeeper-lockfile@1
+before_script:
+  - greenkeeper-lockfile-update
 script:
   - npm run ci:test
-after_success: npm run ci:coverage
+after_script:
+  - greenkeeper-lockfile-upload
+after_success:
+  - npm run ci:coverage
