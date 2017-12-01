@@ -5,3 +5,4 @@
 
 [![Greenkeeper badge](https://badges.greenkeeper.io/architshukla/brotli-cli.svg)](https://greenkeeper.io/)
 [![bitHound Overall Score](https://www.bithound.io/github/architshukla/brotli-cli/badges/score.svg)](https://www.bithound.io/github/architshukla/brotli-cli)
+[![Known Vulnerabilities](https://snyk.io/test/github/architshukla/brotli-cli/badge.svg)](https://snyk.io/test/github/architshukla/brotli-cli)
