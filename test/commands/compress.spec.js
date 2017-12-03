@@ -181,5 +181,44 @@ describe('compress', () => {
         assert.ok(processExitStub.notCalled);
       });
     });
+
+    describe('--quality option', () => {
+      it('should validate that the value lies within the expected range', () => {
+        const fileBuffer = Buffer.from('fileContents', 'utf-8');
+        const fileExistsStub = sandbox.stub(fs, 'existsSync').callsFake(() => true);
+        const logWarnStub = sandbox.stub(logger, 'warn');
+        const readFileStub = sandbox.stub(fs, 'readFile').callsFake((filePath, cb) => cb(null, fileBuffer));
+        const compressStub = sandbox.stub(brotli, 'compress').callsFake(() => null);
+
+        compressCmd.handler({ quality: 12, paths: [fakeFilePath] });
+
+        assert.ok(fileExistsStub.calledOnce);
+        assert.ok(fileExistsStub.calledWith(fakeFilePath));
+        assert.ok(readFileStub.calledOnce);
+        assert.ok(readFileStub.calledWith(fakeFilePath));
+        assert.ok(compressStub.calledOnce);
+        assert.ok(compressStub.calledWith(fileBuffer, { quality: 11 }));
+        assert.ok(logWarnStub.calledTwice);
+      });
+
+      it('should use the speficied valid compression quality', () => {
+        const fileBuffer = Buffer.from('fileContents', 'utf-8');
+        const validCompressionQuality = 11;
+        const fileExistsStub = sandbox.stub(fs, 'existsSync').callsFake(() => true);
+        const logWarnStub = sandbox.stub(logger, 'warn');
+        const readFileStub = sandbox.stub(fs, 'readFile').callsFake((filePath, cb) => cb(null, fileBuffer));
+        const compressStub = sandbox.stub(brotli, 'compress').callsFake(() => null);
+
+        compressCmd.handler({ quality: validCompressionQuality, paths: [fakeFilePath] });
+
+        assert.ok(fileExistsStub.calledOnce);
+        assert.ok(fileExistsStub.calledWith(fakeFilePath));
+        assert.ok(readFileStub.calledOnce);
+        assert.ok(readFileStub.calledWith(fakeFilePath));
+        assert.ok(compressStub.calledOnce);
+        assert.ok(compressStub.calledWith(fileBuffer, { quality: validCompressionQuality }));
+        assert.ok(logWarnStub.calledOnce);
+      });
+    });
   });
 });
