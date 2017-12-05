@@ -220,5 +220,29 @@ describe('compress', () => {
         assert.ok(logWarnStub.calledOnce);
       });
     });
+
+    describe('--verbose option', () => {
+      it('should log information on successful compression', () => {
+        const outputFilePath = path.join(path.dirname(fakeFilePath), `${path.basename(fakeFilePath)}.br`);
+        const fileBuffer = Buffer.from('fileContents', 'utf-8');
+        const fileExistsStub = sandbox.stub(fs, 'existsSync').callsFake(() => true);
+        const readFileStub = sandbox.stub(fs, 'readFile').callsFake((filePath, cb) => cb(null, fileBuffer));
+        const compressStub = sandbox.stub(brotli, 'compress').callsFake(() => fileBuffer);
+        const writeFileStub = sandbox.stub(fs, 'writeFile').callsFake((filePath, buffer, cb) => cb(null));
+        const logInfoStub = sandbox.stub(logger, 'info');
+
+        compressCmd.handler({ paths: [fakeFilePath], verbose: true });
+
+        assert.ok(fileExistsStub.calledOnce, 'fs.existsSync() was not called once');
+        assert.ok(fileExistsStub.calledWith(fakeFilePath), 'fs.existsSync() was not called with the expected path');
+        assert.ok(readFileStub.calledOnce, 'fs.readFile() was not called once');
+        assert.ok(readFileStub.calledWith(fakeFilePath), 'fs.readFile() was not called with the expected path');
+        assert.ok(compressStub.calledOnce, 'brotli.compress() was not called once');
+        assert.ok(compressStub.calledWith(fileBuffer), 'brotli.compress() was not called with the expected file buffer');
+        assert.ok(writeFileStub.calledOnce, 'fs.writeFile() was not called once');
+        assert.ok(writeFileStub.calledWith(outputFilePath, fileBuffer), 'fs.writeFile() was not called with the expected path or file buffer');
+        assert.ok(logInfoStub.calledTwice, 'logger.info() was not called twice');
+      });
+    });
   });
 });
