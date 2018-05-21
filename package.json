@@ -26,16 +26,16 @@
   "license": "MIT",
   "dependencies": {
     "brotli": "^1.3.2",
-    "chalk": "^2.3.0",
-    "yargs": "^11.0.0"
+    "chalk": "^2.4.1",
+    "yargs": "^11.1.0"
   },
   "devDependencies": {
-    "coveralls": "^3.0.0",
-    "eslint": "^4.12.0",
+    "coveralls": "^3.0.1",
+    "eslint": "^4.19.1",
     "eslint-config-airbnb-base": "^12.1.0",
-    "eslint-plugin-import": "^2.8.0",
+    "eslint-plugin-import": "^2.12.0",
     "mocha": "^5.0.0",
-    "nyc": "^11.4.0",
+    "nyc": "^11.8.0",
     "sinon": "^5.0.0"
   }
 }
